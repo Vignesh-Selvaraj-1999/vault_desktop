@@ -1,0 +1,54 @@
+{
+  "name": "vault_desktop",
+  "productName": "Vault Time Tracker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "macOS menu bar time tracking app for Vault",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "concurrently -k -n vite,electron \"vite\" \"wait-on tcp:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 node scripts/launch-electron.js\"",
+    "build": "vite build",
+    "start": "npm run build && node scripts/launch-electron.js",
+    "icons": "node scripts/generate-icons.js",
+    "package:mac": "vite build && electron-builder --mac dir"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "concurrently": "^10.0.6",
+    "cross-env": "^10.1.0",
+    "electron": "^33.4.11",
+    "electron-builder": "^25.1.8",
+    "vite": "^5.4.21",
+    "wait-on": "^9.5.1"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "build": {
+    "appId": "com.rarecrew.vault.timetracker",
+    "productName": "Vault Time Tracker",
+    "directories": {
+      "output": "out"
+    },
+    "files": [
+      "dist/**",
+      "electron/**",
+      "assets/**",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        "dir"
+      ],
+      "identity": null,
+      "extendInfo": {
+        "LSUIElement": true
+      }
+    }
+  }
+}
